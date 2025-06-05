@@ -1,0 +1,573 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> statement
+Rule 1     statement -> query
+Rule 2     statement -> create_table
+Rule 3     statement -> insert_stmt
+Rule 4     statement -> delete_stmt
+Rule 5     statement -> update_stmt
+Rule 6     statement -> drop_table
+Rule 7     create_table -> CREATE TABLE TCNAME LPAREN field_defs RPAREN
+Rule 8     field_defs -> field_def
+Rule 9     field_defs -> field_def COMMA field_defs
+Rule 10    field_def -> TCNAME TYPE
+Rule 11    insert_stmt -> INSERT INTO TCNAME VALUES LPAREN value_list RPAREN
+Rule 12    value_list -> CONSTANT
+Rule 13    value_list -> CONSTANT COMMA value_list
+Rule 14    delete_stmt -> DELETE FROM TCNAME
+Rule 15    update_stmt -> UPDATE TCNAME SET TCNAME EQX CONSTANT WHERE TCNAME EQX CONSTANT
+Rule 16    drop_table -> DROP TABLE TCNAME
+Rule 17    query -> SELECT sel_list FROM table_name opt_where
+Rule 18    sel_list -> STAR
+Rule 19    sel_list -> TCNAME rest_fields
+Rule 20    rest_fields -> COMMA TCNAME rest_fields
+Rule 21    rest_fields -> <empty>
+Rule 22    table_name -> TCNAME
+Rule 23    opt_where -> WHERE condition
+Rule 24    opt_where -> <empty>
+Rule 25    condition -> TCNAME EQX CONSTANT
+
+Terminals, with rules where they appear
+
+COMMA                : 9 13 20
+CONSTANT             : 12 13 15 15 25
+CREATE               : 7
+DELETE               : 14
+DROP                 : 16
+EQX                  : 15 15 25
+FROM                 : 14 17
+INSERT               : 11
+INTO                 : 11
+LPAREN               : 7 11
+RPAREN               : 7 11
+SELECT               : 17
+SET                  : 15
+STAR                 : 18
+TABLE                : 7 16
+TCNAME               : 7 10 11 14 15 15 15 16 19 20 22 25
+TYPE                 : 10
+UPDATE               : 15
+VALUES               : 11
+WHERE                : 15 23
+error                : 
+
+Nonterminals, with rules where they appear
+
+condition            : 23
+create_table         : 2
+delete_stmt          : 4
+drop_table           : 6
+field_def            : 8 9
+field_defs           : 7 9
+insert_stmt          : 3
+opt_where            : 17
+query                : 1
+rest_fields          : 19 20
+sel_list             : 17
+statement            : 0
+table_name           : 17
+update_stmt          : 5
+value_list           : 11 13
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . statement
+    (1) statement -> . query
+    (2) statement -> . create_table
+    (3) statement -> . insert_stmt
+    (4) statement -> . delete_stmt
+    (5) statement -> . update_stmt
+    (6) statement -> . drop_table
+    (17) query -> . SELECT sel_list FROM table_name opt_where
+    (7) create_table -> . CREATE TABLE TCNAME LPAREN field_defs RPAREN
+    (11) insert_stmt -> . INSERT INTO TCNAME VALUES LPAREN value_list RPAREN
+    (14) delete_stmt -> . DELETE FROM TCNAME
+    (15) update_stmt -> . UPDATE TCNAME SET TCNAME EQX CONSTANT WHERE TCNAME EQX CONSTANT
+    (16) drop_table -> . DROP TABLE TCNAME
+
+    SELECT          shift and go to state 8
+    CREATE          shift and go to state 9
+    INSERT          shift and go to state 10
+    DELETE          shift and go to state 11
+    UPDATE          shift and go to state 12
+    DROP            shift and go to state 13
+
+    statement                      shift and go to state 1
+    query                          shift and go to state 2
+    create_table                   shift and go to state 3
+    insert_stmt                    shift and go to state 4
+    delete_stmt                    shift and go to state 5
+    update_stmt                    shift and go to state 6
+    drop_table                     shift and go to state 7
+
+state 1
+
+    (0) S' -> statement .
+
+
+
+state 2
+
+    (1) statement -> query .
+
+    $end            reduce using rule 1 (statement -> query .)
+
+
+state 3
+
+    (2) statement -> create_table .
+
+    $end            reduce using rule 2 (statement -> create_table .)
+
+
+state 4
+
+    (3) statement -> insert_stmt .
+
+    $end            reduce using rule 3 (statement -> insert_stmt .)
+
+
+state 5
+
+    (4) statement -> delete_stmt .
+
+    $end            reduce using rule 4 (statement -> delete_stmt .)
+
+
+state 6
+
+    (5) statement -> update_stmt .
+
+    $end            reduce using rule 5 (statement -> update_stmt .)
+
+
+state 7
+
+    (6) statement -> drop_table .
+
+    $end            reduce using rule 6 (statement -> drop_table .)
+
+
+state 8
+
+    (17) query -> SELECT . sel_list FROM table_name opt_where
+    (18) sel_list -> . STAR
+    (19) sel_list -> . TCNAME rest_fields
+
+    STAR            shift and go to state 15
+    TCNAME          shift and go to state 16
+
+    sel_list                       shift and go to state 14
+
+state 9
+
+    (7) create_table -> CREATE . TABLE TCNAME LPAREN field_defs RPAREN
+
+    TABLE           shift and go to state 17
+
+
+state 10
+
+    (11) insert_stmt -> INSERT . INTO TCNAME VALUES LPAREN value_list RPAREN
+
+    INTO            shift and go to state 18
+
+
+state 11
+
+    (14) delete_stmt -> DELETE . FROM TCNAME
+
+    FROM            shift and go to state 19
+
+
+state 12
+
+    (15) update_stmt -> UPDATE . TCNAME SET TCNAME EQX CONSTANT WHERE TCNAME EQX CONSTANT
+
+    TCNAME          shift and go to state 20
+
+
+state 13
+
+    (16) drop_table -> DROP . TABLE TCNAME
+
+    TABLE           shift and go to state 21
+
+
+state 14
+
+    (17) query -> SELECT sel_list . FROM table_name opt_where
+
+    FROM            shift and go to state 22
+
+
+state 15
+
+    (18) sel_list -> STAR .
+
+    FROM            reduce using rule 18 (sel_list -> STAR .)
+
+
+state 16
+
+    (19) sel_list -> TCNAME . rest_fields
+    (20) rest_fields -> . COMMA TCNAME rest_fields
+    (21) rest_fields -> .
+
+    COMMA           shift and go to state 24
+    FROM            reduce using rule 21 (rest_fields -> .)
+
+    rest_fields                    shift and go to state 23
+
+state 17
+
+    (7) create_table -> CREATE TABLE . TCNAME LPAREN field_defs RPAREN
+
+    TCNAME          shift and go to state 25
+
+
+state 18
+
+    (11) insert_stmt -> INSERT INTO . TCNAME VALUES LPAREN value_list RPAREN
+
+    TCNAME          shift and go to state 26
+
+
+state 19
+
+    (14) delete_stmt -> DELETE FROM . TCNAME
+
+    TCNAME          shift and go to state 27
+
+
+state 20
+
+    (15) update_stmt -> UPDATE TCNAME . SET TCNAME EQX CONSTANT WHERE TCNAME EQX CONSTANT
+
+    SET             shift and go to state 28
+
+
+state 21
+
+    (16) drop_table -> DROP TABLE . TCNAME
+
+    TCNAME          shift and go to state 29
+
+
+state 22
+
+    (17) query -> SELECT sel_list FROM . table_name opt_where
+    (22) table_name -> . TCNAME
+
+    TCNAME          shift and go to state 31
+
+    table_name                     shift and go to state 30
+
+state 23
+
+    (19) sel_list -> TCNAME rest_fields .
+
+    FROM            reduce using rule 19 (sel_list -> TCNAME rest_fields .)
+
+
+state 24
+
+    (20) rest_fields -> COMMA . TCNAME rest_fields
+
+    TCNAME          shift and go to state 32
+
+
+state 25
+
+    (7) create_table -> CREATE TABLE TCNAME . LPAREN field_defs RPAREN
+
+    LPAREN          shift and go to state 33
+
+
+state 26
+
+    (11) insert_stmt -> INSERT INTO TCNAME . VALUES LPAREN value_list RPAREN
+
+    VALUES          shift and go to state 34
+
+
+state 27
+
+    (14) delete_stmt -> DELETE FROM TCNAME .
+
+    $end            reduce using rule 14 (delete_stmt -> DELETE FROM TCNAME .)
+
+
+state 28
+
+    (15) update_stmt -> UPDATE TCNAME SET . TCNAME EQX CONSTANT WHERE TCNAME EQX CONSTANT
+
+    TCNAME          shift and go to state 35
+
+
+state 29
+
+    (16) drop_table -> DROP TABLE TCNAME .
+
+    $end            reduce using rule 16 (drop_table -> DROP TABLE TCNAME .)
+
+
+state 30
+
+    (17) query -> SELECT sel_list FROM table_name . opt_where
+    (23) opt_where -> . WHERE condition
+    (24) opt_where -> .
+
+    WHERE           shift and go to state 37
+    $end            reduce using rule 24 (opt_where -> .)
+
+    opt_where                      shift and go to state 36
+
+state 31
+
+    (22) table_name -> TCNAME .
+
+    WHERE           reduce using rule 22 (table_name -> TCNAME .)
+    $end            reduce using rule 22 (table_name -> TCNAME .)
+
+
+state 32
+
+    (20) rest_fields -> COMMA TCNAME . rest_fields
+    (20) rest_fields -> . COMMA TCNAME rest_fields
+    (21) rest_fields -> .
+
+    COMMA           shift and go to state 24
+    FROM            reduce using rule 21 (rest_fields -> .)
+
+    rest_fields                    shift and go to state 38
+
+state 33
+
+    (7) create_table -> CREATE TABLE TCNAME LPAREN . field_defs RPAREN
+    (8) field_defs -> . field_def
+    (9) field_defs -> . field_def COMMA field_defs
+    (10) field_def -> . TCNAME TYPE
+
+    TCNAME          shift and go to state 39
+
+    field_defs                     shift and go to state 40
+    field_def                      shift and go to state 41
+
+state 34
+
+    (11) insert_stmt -> INSERT INTO TCNAME VALUES . LPAREN value_list RPAREN
+
+    LPAREN          shift and go to state 42
+
+
+state 35
+
+    (15) update_stmt -> UPDATE TCNAME SET TCNAME . EQX CONSTANT WHERE TCNAME EQX CONSTANT
+
+    EQX             shift and go to state 43
+
+
+state 36
+
+    (17) query -> SELECT sel_list FROM table_name opt_where .
+
+    $end            reduce using rule 17 (query -> SELECT sel_list FROM table_name opt_where .)
+
+
+state 37
+
+    (23) opt_where -> WHERE . condition
+    (25) condition -> . TCNAME EQX CONSTANT
+
+    TCNAME          shift and go to state 45
+
+    condition                      shift and go to state 44
+
+state 38
+
+    (20) rest_fields -> COMMA TCNAME rest_fields .
+
+    FROM            reduce using rule 20 (rest_fields -> COMMA TCNAME rest_fields .)
+
+
+state 39
+
+    (10) field_def -> TCNAME . TYPE
+
+    TYPE            shift and go to state 46
+
+
+state 40
+
+    (7) create_table -> CREATE TABLE TCNAME LPAREN field_defs . RPAREN
+
+    RPAREN          shift and go to state 47
+
+
+state 41
+
+    (8) field_defs -> field_def .
+    (9) field_defs -> field_def . COMMA field_defs
+
+    RPAREN          reduce using rule 8 (field_defs -> field_def .)
+    COMMA           shift and go to state 48
+
+
+state 42
+
+    (11) insert_stmt -> INSERT INTO TCNAME VALUES LPAREN . value_list RPAREN
+    (12) value_list -> . CONSTANT
+    (13) value_list -> . CONSTANT COMMA value_list
+
+    CONSTANT        shift and go to state 50
+
+    value_list                     shift and go to state 49
+
+state 43
+
+    (15) update_stmt -> UPDATE TCNAME SET TCNAME EQX . CONSTANT WHERE TCNAME EQX CONSTANT
+
+    CONSTANT        shift and go to state 51
+
+
+state 44
+
+    (23) opt_where -> WHERE condition .
+
+    $end            reduce using rule 23 (opt_where -> WHERE condition .)
+
+
+state 45
+
+    (25) condition -> TCNAME . EQX CONSTANT
+
+    EQX             shift and go to state 52
+
+
+state 46
+
+    (10) field_def -> TCNAME TYPE .
+
+    COMMA           reduce using rule 10 (field_def -> TCNAME TYPE .)
+    RPAREN          reduce using rule 10 (field_def -> TCNAME TYPE .)
+
+
+state 47
+
+    (7) create_table -> CREATE TABLE TCNAME LPAREN field_defs RPAREN .
+
+    $end            reduce using rule 7 (create_table -> CREATE TABLE TCNAME LPAREN field_defs RPAREN .)
+
+
+state 48
+
+    (9) field_defs -> field_def COMMA . field_defs
+    (8) field_defs -> . field_def
+    (9) field_defs -> . field_def COMMA field_defs
+    (10) field_def -> . TCNAME TYPE
+
+    TCNAME          shift and go to state 39
+
+    field_def                      shift and go to state 41
+    field_defs                     shift and go to state 53
+
+state 49
+
+    (11) insert_stmt -> INSERT INTO TCNAME VALUES LPAREN value_list . RPAREN
+
+    RPAREN          shift and go to state 54
+
+
+state 50
+
+    (12) value_list -> CONSTANT .
+    (13) value_list -> CONSTANT . COMMA value_list
+
+    RPAREN          reduce using rule 12 (value_list -> CONSTANT .)
+    COMMA           shift and go to state 55
+
+
+state 51
+
+    (15) update_stmt -> UPDATE TCNAME SET TCNAME EQX CONSTANT . WHERE TCNAME EQX CONSTANT
+
+    WHERE           shift and go to state 56
+
+
+state 52
+
+    (25) condition -> TCNAME EQX . CONSTANT
+
+    CONSTANT        shift and go to state 57
+
+
+state 53
+
+    (9) field_defs -> field_def COMMA field_defs .
+
+    RPAREN          reduce using rule 9 (field_defs -> field_def COMMA field_defs .)
+
+
+state 54
+
+    (11) insert_stmt -> INSERT INTO TCNAME VALUES LPAREN value_list RPAREN .
+
+    $end            reduce using rule 11 (insert_stmt -> INSERT INTO TCNAME VALUES LPAREN value_list RPAREN .)
+
+
+state 55
+
+    (13) value_list -> CONSTANT COMMA . value_list
+    (12) value_list -> . CONSTANT
+    (13) value_list -> . CONSTANT COMMA value_list
+
+    CONSTANT        shift and go to state 50
+
+    value_list                     shift and go to state 58
+
+state 56
+
+    (15) update_stmt -> UPDATE TCNAME SET TCNAME EQX CONSTANT WHERE . TCNAME EQX CONSTANT
+
+    TCNAME          shift and go to state 59
+
+
+state 57
+
+    (25) condition -> TCNAME EQX CONSTANT .
+
+    $end            reduce using rule 25 (condition -> TCNAME EQX CONSTANT .)
+
+
+state 58
+
+    (13) value_list -> CONSTANT COMMA value_list .
+
+    RPAREN          reduce using rule 13 (value_list -> CONSTANT COMMA value_list .)
+
+
+state 59
+
+    (15) update_stmt -> UPDATE TCNAME SET TCNAME EQX CONSTANT WHERE TCNAME . EQX CONSTANT
+
+    EQX             shift and go to state 60
+
+
+state 60
+
+    (15) update_stmt -> UPDATE TCNAME SET TCNAME EQX CONSTANT WHERE TCNAME EQX . CONSTANT
+
+    CONSTANT        shift and go to state 61
+
+
+state 61
+
+    (15) update_stmt -> UPDATE TCNAME SET TCNAME EQX CONSTANT WHERE TCNAME EQX CONSTANT .
+
+    $end            reduce using rule 15 (update_stmt -> UPDATE TCNAME SET TCNAME EQX CONSTANT WHERE TCNAME EQX CONSTANT .)
+
